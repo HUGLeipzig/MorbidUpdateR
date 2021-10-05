@@ -15,7 +15,9 @@
 #' @import dplyr
 #'
 #' @examples
+#' \dontrun{
 #' clinvar_tsv_filtered_patho_HGNC = Add_ClinVar(cutoff = 4)
+#' }
 
 Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
                        .tidy_clinvar_vcf_meta = tidy_clinvar_vcf_meta,

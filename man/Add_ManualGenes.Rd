@@ -19,5 +19,7 @@ Add_ManualGenes(
 Add genes which have to be added manually from the Excel spreadsheet
 }
 \examples{
+\dontrun{
 Manual = Add_ManualGenes()
+}
 }

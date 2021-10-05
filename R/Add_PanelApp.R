@@ -9,7 +9,10 @@
 #' @import readr
 #'
 #' @examples
+#' \dontrun{
 #' PanelAppGenes = Add_PanelApp()
+#' }
+
 Add_PanelApp = function(PanelAppFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppGenes/2021_08_25_PA_all_genes.csv"){
 
   PanelAppGenes = read_tsv(PanelAppFile,

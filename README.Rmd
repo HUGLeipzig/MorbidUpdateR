@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
 
 # MorbidUpdateR
 
-<!-- badges: start -->
-<!-- badges: end -->
 
 The goal of MorbidUpdateR is to conveniently update our Morbid Genes Panel. The user 
 can simply run the functions without editing the variables, as the default values 

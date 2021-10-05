@@ -16,5 +16,7 @@ Add_HGMD(cutoff = 4)
 Add HGMD Data and determine pathogenic cutoff
 }
 \examples{
+\dontrun{
 HGMD_count_HGNC = Add_HGMD(cutoff = 4)
+}
 }

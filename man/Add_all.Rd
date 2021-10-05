@@ -48,5 +48,7 @@ This script will add all the relevant variables to your global environment for c
 }
 
 \examples{
+\dontrun{
 Add_all(ClinVarCutoff = 4, mim2gene = mim2gene)
+}
 }

@@ -44,5 +44,7 @@ or in your Global Env after running \code{\link{Add_all}}}
 Title
 }
 \examples{
+\dontrun{
 Build_MorbidGenesPanel()
+}
 }

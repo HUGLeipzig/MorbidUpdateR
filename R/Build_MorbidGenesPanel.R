@@ -21,7 +21,9 @@
 #' @import dplyr
 #'
 #' @examples
+#' \dontrun{
 #' Build_MorbidGenesPanel()
+#' }
 
 Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
                                   version = format(Sys.time(), "%Y-%m"),

@@ -12,15 +12,18 @@
 #' @param .VarvisGeneManagement See \code{\link{Add_HGNC}} for details
 #' @param .morbidmap See \code{\link{Add_HGNC}} for details
 #' @param .mim2gene See \code{\link{Add_OMIM}} for details
-#' @param PanelAppFile See \code{\link{Add_PanelApp}} for details
-#' @param ManualFile See \code{\link{Add_ManualGenes}} for details
+#' @param panelAppFile See \code{\link{Add_PanelApp}} for details
+#' @param manualFile See \code{\link{Add_ManualGenes}} for details
 #' @param ... Additional arguments passed on to \code{\link{Add_ClinVar}}
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' Add_all(ClinVarCutoff = 4, mim2gene = mim2gene)
+#' }
+
 Add_all = function(ClinVarCutoff = 4,
                    HGMDCutoff = 4,
                    .VarvisGeneManagement = VarvisGeneManagement,

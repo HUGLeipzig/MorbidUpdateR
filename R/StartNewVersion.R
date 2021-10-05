@@ -29,11 +29,12 @@
 #' is a previous version from the same month, to avoid overwriting.
 #'
 #' @examples
+#' \dontrun{
 #' StartNewVersion(download_varvis = F, download_HGNC = F,
 #' download_OMIM = F, download_ClinVar_tsv = F, download_ClinVar_vcf = F)
 #' # This will create a panel directory in the default HUG panel folder,
 #' # the version will be "Year-Month" and a subversion
-#'
+#' }
 #'
 StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
                            version = format(Sys.time(), "%Y-%m"),

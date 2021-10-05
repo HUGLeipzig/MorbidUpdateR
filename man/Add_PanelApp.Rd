@@ -19,5 +19,7 @@ Add_PanelApp(
 Add the PanelApp Genes
 }
 \examples{
+\dontrun{
 PanelAppGenes = Add_PanelApp()
+}
 }

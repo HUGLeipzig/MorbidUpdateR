@@ -9,7 +9,9 @@
 #' @import readxl
 #'
 #' @examples
+#' \dontrun{
 #' Manual = Add_ManualGenes()
+#' }
 
 Add_ManualGenes = function(ManualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx"){
 

@@ -9,7 +9,9 @@
 #' @import dplyr
 #'
 #' @examples
+#' \dontrun{
 #' VarvisGeneManagement_HGNC = Add_HGNC(.VarvisGeneManagement = VarvisGeneManagement)
+#' }
 
 Add_HGNC = function(.VarvisGeneManagement = VarvisGeneManagement){
   VarvisGeneManagement_HGNC <- VarvisGeneManagement %>%

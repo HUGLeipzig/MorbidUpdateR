@@ -17,5 +17,7 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 Add the HGNC Data to the Varvis Gene Management file
 }
 \examples{
+\dontrun{
 VarvisGeneManagement_HGNC = Add_HGNC(.VarvisGeneManagement = VarvisGeneManagement)
+}
 }

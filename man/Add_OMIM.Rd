@@ -20,5 +20,7 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 Reshape the morbidmap to be added to the Panel
 }
 \examples{
+\dontrun{
 morbidmap_reshape = Add_OMIM(.morbidmap = morbidmap, .mim2gene = mim2gene)
+}
 }

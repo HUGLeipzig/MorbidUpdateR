@@ -33,5 +33,7 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 Add the data from both Clinvar files
 }
 \examples{
+\dontrun{
 clinvar_tsv_filtered_patho_HGNC = Add_ClinVar(cutoff = 4)
+}
 }

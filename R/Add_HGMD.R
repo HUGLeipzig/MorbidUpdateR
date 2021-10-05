@@ -8,7 +8,9 @@
 #' @import dplyr
 #'
 #' @examples
+#' \dontrun{
 #' HGMD_count_HGNC = Add_HGMD(cutoff = 4)
+#' }
 
 Add_HGMD = function(cutoff = 4){
   HGMD = read_csv("W:/HUG/04 Klinische Genomik/09 HGMD Download and Analyses/HGMD_Advanced_Substitutions.csv.gz",

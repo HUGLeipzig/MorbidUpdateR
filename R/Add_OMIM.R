@@ -12,7 +12,9 @@
 #' @import tidyr
 #'
 #' @examples
+#' \dontrun{
 #' morbidmap_reshape = Add_OMIM(.morbidmap = morbidmap, .mim2gene = mim2gene)
+#' }
 
 
 Add_OMIM = function(.morbidmap = morbidmap, .mim2gene = mim2gene){
