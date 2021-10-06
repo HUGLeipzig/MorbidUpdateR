@@ -8,8 +8,6 @@ output: github_document
 
 # MorbidUpdateR
 
-<!-- badges: start -->
-<!-- badges: end -->
 
 The goal of MorbidUpdateR is to conveniently update our Morbid Genes Panel. The user 
 can simply run the functions without editing the variables, as the default values 
@@ -24,35 +22,37 @@ Morbid Genes Panel.
 
 ## Installation
 
-You can install the development version from [GitHub](https://github.com/) with:
+You can install the development version from [GitHub](https://github.com/HUGLeipzig/MorbidUpdateR) with:
 
 
 ```r
 # install.packages("devtools")
-#devtools::install_github("RJauss/Morbid-UpdateR")
+GitHubToken = "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"
+devtools::install_github("HUGLeipzig/MorbidUpdateR", auth_token = GitHubToken)
+#> Skipping install of 'MorbidUpdateR' from a github remote, the SHA1 (dee4f84f) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
-## Example
+## Getting started
 
-This is a basic example which shows you how to solve a common problem:
+The package contains several function, most of them can be run "as is" without 
+specifying variables and paths:
 
 
 ```r
-#library(MorbidUpdateR)
-## basic example code
+library(MorbidUpdateR)
+
+# generate directory and download all the relevant files 
+StartNewVersion()
+
+# add/edit the downloaded files automatically
+Add_all()
+
+# build and save the panel
+Build_MorbidGenesPanel()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+That's basically it. For a more comprehensive list of variables and how to manipulate 
+your input/output files, just run `?function` in the command line
 
 
-```r
-#summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
-
-You can also embed plots, for example:
-
-
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
