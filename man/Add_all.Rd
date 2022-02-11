@@ -7,11 +7,14 @@
 Add_all(
   ClinVarCutoff = 4,
   HGMDCutoff = 4,
-  .VarvisGeneManagement = VarvisGeneManagement,
   .morbidmap = morbidmap,
   .mim2gene = mim2gene,
- 
-    panelAppFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppGenes/2021_08_25_PA_all_genes.csv",
+  PanelApp_Panel = "both",
+  PanelApp_confidence = 3,
+  downloadPanelApp = T,
+  SysNDD_category = "Definitive",
+  SysNDD_inheritance = "All",
+  download_SysNDD = T,
  
     manualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
   ...
@@ -22,17 +25,25 @@ Add_all(
 
 \item{HGMDCutoff}{HGMD's pathogenic cutoff value. See \code{\link{Add_HGMD}} for details}
 
-\item{.VarvisGeneManagement}{See \code{\link{Add_HGNC}} for details}
-
 \item{.morbidmap}{See \code{\link{Add_HGNC}} for details}
 
 \item{.mim2gene}{See \code{\link{Add_OMIM}} for details}
 
+\item{PanelApp_Panel}{See \code{\link{Add_PanelApp}} for details}
+
+\item{PanelApp_confidence}{See \code{\link{Add_PanelApp}} for details}
+
+\item{downloadPanelApp}{See \code{\link{Add_PanelApp}} for details}
+
+\item{SysNDD_category}{See \code{\link{Add_SysNDD}} for details}
+
+\item{SysNDD_inheritance}{See \code{\link{Add_SysNDD}} for details}
+
+\item{download_SysNDD}{See \code{\link{Add_SysNDD}} for details}
+
+\item{manualFile}{See \code{\link{Add_ManualGenes}} for details}
+
 \item{...}{Additional arguments passed on to \code{\link{Add_ClinVar}}}
-
-\item{PanelAppFile}{See \code{\link{Add_PanelApp}} for details}
-
-\item{ManualFile}{See \code{\link{Add_ManualGenes}} for details}
 }
 \value{
 

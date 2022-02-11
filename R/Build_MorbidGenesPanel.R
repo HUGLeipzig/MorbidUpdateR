@@ -6,9 +6,13 @@
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param .clinvar_tsv_filtered_patho_HGNC The result of the function \code{\link{Add_ClinVar}}
 #' or in your Global Env after running \code{\link{Add_all}}
+#' @param .HGMD_count_HGNC The result of the function \code{\link{Add_HGMD}}
+#' or in your Global Env after running \code{\link{Add_all}}
 #' @param .morbidmap_reshape The result of the function \code{\link{Add_OMIM}}
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param .Manual The result of the function \code{\link{Add_ManualGenes}}
+#' or in your Global Env after running \code{\link{Add_all}}
+#' @param .SysNDD The result of the function \code{\link{Add_SysNDD}}
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param .PanelAppGenes The result of the function \code{\link{Add_PanelApp}}
 #' or in your Global Env after running \code{\link{Add_all}}
@@ -28,34 +32,41 @@
 Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
                                   version = format(Sys.time(), "%Y-%m"),
                                   .VarvisGeneManagement_HGNC = VarvisGeneManagement_HGNC,
+                                  .HGMD_count_HGNC = HGMD_count_HGNC,
                                   .clinvar_tsv_filtered_patho_HGNC = clinvar_tsv_filtered_patho_HGNC,
                                   .morbidmap_reshape = morbidmap_reshape,
                                   .Manual = Manual,
                                   .PanelAppGenes = PanelAppGenes,
+                                  .SysNDD = SysNDD,
                                   save = T){
 
   MorbidGenes_Panel = VarvisGeneManagement_HGNC %>%
-    left_join(HGMD_count_HGNC,
+    left_join(.HGMD_count_HGNC,
               by = c("HGNC_symbol_corrected" = "HGNC_symbol_corrected"),
               na_matches = "never") %>%
-    left_join(clinvar_tsv_filtered_patho_HGNC,
+    left_join(.clinvar_tsv_filtered_patho_HGNC,
               by = c("HGNC_symbol_corrected" = "Approved_Gene_Symbol_HGNC"),
               na_matches = "never") %>%
-    left_join(morbidmap_reshape,
+    left_join(.morbidmap_reshape,
               by = c("HGNC_symbol_corrected" = "Approved_Gene_Symbol_HGNC"),
               na_matches = "never") %>%
-    left_join(Manual,
+    left_join(.Manual,
               by = c("HGNC_symbol_corrected" = "Gene"),
               na_matches = "never") %>%
-    left_join(PanelAppGenes,
-              by = c("HGNCID" = "hgnc"),
+    left_join(.PanelAppGenes,
+              by = c("HGNC_symbol_corrected" = "entity_name"),
               na_matches = "never") %>%
-    select("SYMBOL", "NAME", "CHROMOSOME", "CHROMOSOMELOCATION", "TRANSCRIPT",
+    left_join(.SysNDD,
+              by = c("HGNC_symbol_corrected" = "SysNDDGene"),
+              na_matches = "never") %>%
+    select("SYMBOL", "NAME", "CHROMOSOME", "start_position",
+           "end_position", "CHROMOSOMELOCATION", "TRANSCRIPT",
            "NCBIID", "OMIMID", "LRGID", "ENSEMBLID", "HGNCID", "symbol",
            "HGNC_symbol_corrected", "HGMD_pathogenic_variant_count",
            "HGMD_pathogenic_variant_count_cutoff", "ClinVarPathogenicCount",
            "ClinVarPathogenicCount_cutoff","Phenotype","Phenotype_MIM_Numbers",
-           "MIM_Numbers", "addedManually", "isPanelAppGene") %>%
+           "MIM_Numbers", "addedManually", "isPanelAppGene",
+           "isUKPanelAppGene", "isAustraliaPanelAppGene", "isSysNDDGene") %>%
     mutate(has_Phenotype_MIM_Number = !is.na(Phenotype_MIM_Numbers)) %>%
     mutate(keep = case_when(
       # Genes with HGMD cutoff
@@ -66,9 +77,18 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
       isPanelAppGene ~ TRUE,
       # Genes added manually
       addedManually ~ TRUE,
+      # SysID Genes
+      isSysNDDGene ~ TRUE,
       # has OMIM Phenotype
       has_Phenotype_MIM_Number ~ TRUE
     )) %>%
+    # add a score counting the "TRUE" values to determine which gene has most evidence
+    mutate(MorbidScore = rowSums(.[c("HGMD_pathogenic_variant_count_cutoff",
+                                     "ClinVarPathogenicCount_cutoff",
+                                     "isPanelAppGene",
+                                     "isSysNDDGene",
+                                     "has_Phenotype_MIM_Number")],
+                                 na.rm = T)) %>%
     distinct()
 
   # check if the directory string ends with a "\" or "/" and append if not
@@ -88,5 +108,7 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                paste0(directory, filename, "/", filename, ".csv"),
                na = "NA", append = FALSE, col_names = T, escape = "double")
   }
+
+  assign("MorbidGenes_Panel", MorbidGenes_Panel, envir = .GlobalEnv)
 
 }

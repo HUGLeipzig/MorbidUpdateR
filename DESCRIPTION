@@ -22,4 +22,7 @@ Imports:
     readr, 
     utils, 
     readxl, 
-    tidyr
+    tidyr, 
+    purrr, 
+    stringi, 
+    biomaRt

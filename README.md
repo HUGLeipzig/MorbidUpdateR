@@ -29,8 +29,6 @@ You can install the development version from [GitHub](https://github.com/HUGLeip
 # install.packages("devtools")
 GitHubToken = "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"
 devtools::install_github("HUGLeipzig/MorbidUpdateR", auth_token = GitHubToken)
-#> Skipping install of 'MorbidUpdateR' from a github remote, the SHA1 (dee4f84f) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 ```
 
 ## Getting started

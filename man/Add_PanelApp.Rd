@@ -4,13 +4,15 @@
 \alias{Add_PanelApp}
 \title{Add the PanelApp Genes}
 \usage{
-Add_PanelApp(
- 
-    PanelAppFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppGenes/2021_08_25_PA_all_genes.csv"
-)
+Add_PanelApp(Panel = "both", confidence = 3, download = T)
 }
 \arguments{
-\item{PanelAppFile}{The path to the file where the PanelApp Genes are stored}
+\item{Panel}{One of "UK", "AUS" or "both" (default). This is to specify which PanelApp to use}
+
+\item{confidence}{The minimum confidence of genes to keep. Can be 1 (minimum red genes),
+2 (minimum amber genes) or the default 3 (minimum green genes)}
+
+\item{download}{Should the latest data be downloaded? If not, the previous versions will be read}
 }
 \value{
 

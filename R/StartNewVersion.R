@@ -19,6 +19,7 @@
 #' @import readr
 #' @import httr
 #' @import dplyr
+#' @import stringi
 #'
 #' @details The files needed for the next step will also be added to the global environment.
 #' If you do not download the latest datasets, the ones from the previous version
@@ -106,11 +107,13 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   # download Varvis with the API
   if(download_varvis == T){
-    message("Downloading Varvis Data")
+    message("\nDownloading Varvis Data\n")
 
     target='uni-leipzig'
     user_name='hugapi'
-    password="§23R“3r/&R"
+
+    # parse the password as unicode because of the special characters
+    password = stri_unescape_unicode("\u00a723R\u201c3r/\u0026R")
 
       # 1) Get CSRF token and session ID to log in
     res = GET(paste0("https://", target, ".varvis.com/authenticate"))
@@ -137,7 +140,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
     assign("VarvisGeneManagement", VarvisGeneManagement, envir = .GlobalEnv)
 
   } else { # get the VarvisGeneManagement from the previous version
-    message(paste0("Reading Varvis Gene Management file from ", prevVersion))
+    message(paste0("\nReading Varvis Gene Management file from ", prevVersion, "\n"))
 
     VarvisGeneManagement = read.csv(file = paste0(prevVersion, "/downloads/VarvisGeneManagement.csv"),
                                     header = T, sep = ",")
@@ -154,14 +157,14 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   # download HGNC files
   if(download_HGNC == T){
-    message("Downloading HGNC Data")
+    message("\nDownloading HGNC Data\n")
 
     download.file("ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt",
                   paste0(downloadDir, "hgnc_complete_set.txt"), quiet=F)
     hgnc_path = downloadDir
 
   } else {
-    message(paste0("Reading HGNC Data from ", prevVersion))
+    message(paste0("\nReading HGNC Data from ", prevVersion, "\n"))
 
     file.copy(from = paste0(prevVersion, "/downloads/hgnc_complete_set.txt"),
               to = paste0(downloadDir, "hgnc_complete_set.txt"),
@@ -172,7 +175,8 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   }
 
   hgnc_complete_set = read_delim(paste0(hgnc_path, "hgnc_complete_set.txt"), "\t",
-                                  escape_double = FALSE, trim_ws = TRUE)
+                                  escape_double = FALSE, trim_ws = TRUE,
+                                 show_col_types = FALSE)
   assign("hgnc_complete_set", hgnc_complete_set, envir = .GlobalEnv)
 
 
@@ -180,7 +184,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   # download OMIM files
   if(download_OMIM == T){
-    message("Downloading OMIM Data")
+    message("\nDownloading OMIM Data\n")
 
     download.file("https://omim.org/static/omim/data/mim2gene.txt",
                   paste0(downloadDir, "mim2gene.txt"), quiet=F)
@@ -194,7 +198,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
     Omim_path = downloadDir
 
   } else {
-    message(paste0("Reading OMIM data from ", prevVersion))
+    message(paste0("\nReading OMIM data from ", prevVersion, "\n"))
 
     file.copy(from = paste0(prevVersion, "/downloads/mim2gene.txt"),
               to = paste0(downloadDir, "mim2gene.txt"),
@@ -219,13 +223,15 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
                          col_names = c("MIM_Number", "MIM_Entry_Type",
                                        "Entrez_Gene_ID_NCBI",
                                        "Approved_Gene_Symbol_HGNC",
-                                       "Ensembl_Gene_ID_Ensembl"))
+                                       "Ensembl_Gene_ID_Ensembl"),
+                        show_col_types = FALSE)
 
   mimTitles = read_delim(paste0(Omim_path, "mimTitles.txt"), "\t",
                           escape_double = FALSE, trim_ws = TRUE, comment = "#",
                           col_names = c("Prefix","MIM_Number","Preferred_Title_symbol",
                                         "Alternative_Titles_symbols",
-                                        "Included_Titles_ symbols"))
+                                        "Included_Titles_ symbols"),
+                         show_col_types = FALSE)
 
   genemap2 = read_delim(paste0(Omim_path, "genemap2.txt"), "\t",
                          escape_double = FALSE, trim_ws = TRUE, comment = "#",
@@ -235,12 +241,14 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
                                        "MIM_Number", "Gene_Symbols",
                                        "Gene_Name", "Approved_Symbol", "Entrez_Gene_ID",
                                        "Ensembl_Gene_ID",
-                                       "Comments", "Phenotypes", "Mouse_Gene_Symbol_ID"))
+                                       "Comments", "Phenotypes", "Mouse_Gene_Symbol_ID"),
+                        show_col_types = FALSE)
 
   morbidmap = read_delim(paste0(Omim_path, "morbidmap.txt"), "\t",
                           escape_double = FALSE, trim_ws = TRUE, comment = "#",
                           col_names = c("Phenotype", "Gene_Symbols",
-                                        "MIM_Number", "Cyto_Location"))
+                                        "MIM_Number", "Cyto_Location"),
+                         show_col_types = FALSE)
 
   assign("mim2gene", mim2gene, envir = .GlobalEnv)
   assign("mimTitles", mimTitles, envir = .GlobalEnv)
@@ -253,7 +261,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   # download ClinVar vcf
   if(download_ClinVar_vcf == T){
-    message("Downloading ClinVar vcf (This might take a while...)")
+    message("\nDownloading ClinVar vcf (This might take a while...)\n")
 
     download.file("https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/clinvar.vcf.gz",
                   paste0(downloadDir, "/clinvar.vcf.gz"), quiet=F)
@@ -261,7 +269,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
     clinvarvcf_path = downloadDir
 
   } else {
-    message(paste0("Reading ClinVar vcf from ", prevVersion))
+    message(paste0("\nReading ClinVar vcf from ", prevVersion, "\n"))
 
     file.copy(from = paste0(prevVersion, "/downloads/clinvar.vcf.gz"),
               to = paste0(downloadDir, "clinvar.vcf.gz"),
@@ -271,7 +279,10 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   }
 
-  clinvar_vcf = read.vcfR(paste0(clinvarvcf_path, "clinvar.vcf.gz"), verbose = T)
+  message("\nReading ClinVar vcf (This might take a while...)\n")
+
+  clinvar_vcf = read.vcfR(paste0(clinvarvcf_path, "clinvar.vcf.gz"), verbose = T,
+                          limit = 6e+09)
 
   tidy_clinvar_vcf_meta = extract_info_tidy(clinvar_vcf, info_fields = NULL,
                                              info_types = TRUE, info_sep = ";")
@@ -281,7 +292,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   # download ClinVar tsv
   if(download_ClinVar_tsv == T){
-    message("Downloading ClinVar tsv (This might take a while...)")
+    message("\nDownloading ClinVar tsv (This might take a while...)\n")
 
     download.file("https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz",
                   paste0(downloadDir, "variant_summary.txt.gz"), quiet = F)
@@ -289,7 +300,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
     clinvartsv_path = downloadDir
 
   } else {
-    message(paste0("Reading ClinVar tsv from ", prevVersion))
+    message(paste0("\nReading ClinVar tsv from ", prevVersion, "\n"))
 
     file.copy(from = paste0(prevVersion, "/downloads/variant_summary.txt.gz"),
               to = paste0(downloadDir, "variant_summary.txt.gz"),
@@ -299,10 +310,14 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   }
 
+  message("\nReading ClinVar tsv (This might take a while...)\n")
+
   clinvar_tsv = read_tsv(paste0(clinvartsv_path, "variant_summary.txt.gz"),
                           col_select = c("#AlleleID", "Name", "GeneSymbol",
                                          "ClinicalSignificance", "Assembly",
-                                         "GeneID", "HGNC_ID"))
+                                         "GeneID", "HGNC_ID"),
+                         show_col_types = FALSE)
+
   colnames(clinvar_tsv)[1] = "AlleleID"
 
   # subset clinvar table to GrCH37
@@ -315,6 +330,6 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   ############################# FINALE ########################################
 
-  message(paste0("Success! All files have been successfully downloaded to ",
-                 downloadDir))
+  message(paste0("\nSuccess! All files have been successfully downloaded to ",
+                 downloadDir, "\n"))
 }

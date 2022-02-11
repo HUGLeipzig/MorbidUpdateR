@@ -2,7 +2,7 @@
 % Please edit documentation in R/Add_HGNC.R
 \name{Add_HGNC}
 \alias{Add_HGNC}
-\title{Add the HGNC Data to the Varvis Gene Management file}
+\title{Add the HGNC Data and genomic positions (GRCh38) to the Varvis Gene Management file}
 \usage{
 Add_HGNC(.VarvisGeneManagement = VarvisGeneManagement)
 }
@@ -14,7 +14,7 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 
 }
 \description{
-Add the HGNC Data to the Varvis Gene Management file
+Add the HGNC Data and genomic positions (GRCh38) to the Varvis Gene Management file
 }
 \examples{
 \dontrun{

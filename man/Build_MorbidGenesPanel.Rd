@@ -8,10 +8,12 @@ Build_MorbidGenesPanel(
   directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
   version = format(Sys.time(), "\%Y-\%m"),
   .VarvisGeneManagement_HGNC = VarvisGeneManagement_HGNC,
+  .HGMD_count_HGNC = HGMD_count_HGNC,
   .clinvar_tsv_filtered_patho_HGNC = clinvar_tsv_filtered_patho_HGNC,
   .morbidmap_reshape = morbidmap_reshape,
   .Manual = Manual,
   .PanelAppGenes = PanelAppGenes,
+  .SysNDD = SysNDD,
   save = T
 )
 }
@@ -21,6 +23,9 @@ Build_MorbidGenesPanel(
 \item{version}{The same you provided in \code{\link{StartNewVersion}}}
 
 \item{.VarvisGeneManagement_HGNC}{The result of the function \code{\link{Add_HGNC}}
+or in your Global Env after running \code{\link{Add_all}}}
+
+\item{.HGMD_count_HGNC}{The result of the function \code{\link{Add_HGMD}}
 or in your Global Env after running \code{\link{Add_all}}}
 
 \item{.clinvar_tsv_filtered_patho_HGNC}{The result of the function \code{\link{Add_ClinVar}}
@@ -33,6 +38,9 @@ or in your Global Env after running \code{\link{Add_all}}}
 or in your Global Env after running \code{\link{Add_all}}}
 
 \item{.PanelAppGenes}{The result of the function \code{\link{Add_PanelApp}}
+or in your Global Env after running \code{\link{Add_all}}}
+
+\item{.SysNDD}{The result of the function \code{\link{Add_SysNDD}}
 or in your Global Env after running \code{\link{Add_all}}}
 
 \item{save}{should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory}

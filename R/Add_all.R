@@ -9,10 +9,14 @@
 #'
 #' @param ClinVarCutoff ClinVar's pathogenic cutoff value. See \code{\link{Add_ClinVar}} for details
 #' @param HGMDCutoff HGMD's pathogenic cutoff value. See \code{\link{Add_HGMD}} for details
-#' @param .VarvisGeneManagement See \code{\link{Add_HGNC}} for details
 #' @param .morbidmap See \code{\link{Add_HGNC}} for details
 #' @param .mim2gene See \code{\link{Add_OMIM}} for details
-#' @param panelAppFile See \code{\link{Add_PanelApp}} for details
+#' @param downloadPanelApp See \code{\link{Add_PanelApp}} for details
+#' @param PanelApp_Panel See \code{\link{Add_PanelApp}} for details
+#' @param PanelApp_confidence See \code{\link{Add_PanelApp}} for details
+#' @param SysNDD_category See \code{\link{Add_SysNDD}} for details
+#' @param SysNDD_inheritance See \code{\link{Add_SysNDD}} for details
+#' @param download_SysNDD See \code{\link{Add_SysNDD}} for details
 #' @param manualFile See \code{\link{Add_ManualGenes}} for details
 #' @param ... Additional arguments passed on to \code{\link{Add_ClinVar}}
 #'
@@ -26,10 +30,14 @@
 
 Add_all = function(ClinVarCutoff = 4,
                    HGMDCutoff = 4,
-                   .VarvisGeneManagement = VarvisGeneManagement,
                    .morbidmap = morbidmap,
                    .mim2gene = mim2gene,
-                   panelAppFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppGenes/2021_08_25_PA_all_genes.csv",
+                   PanelApp_Panel = "both",
+                   PanelApp_confidence = 3,
+                   downloadPanelApp = T,
+                   SysNDD_category = "Definitive",
+                   SysNDD_inheritance = "All",
+                   download_SysNDD = T,
                    manualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
                    ...){
 
@@ -38,7 +46,7 @@ Add_all = function(ClinVarCutoff = 4,
                 "morbidmap_reshape",
                 "clinvar_tsv_filtered_patho_HGNC",
                 "PanelAppGenes",
-                "Manual")
+                "Manual", "SysNDD")
 
   variablePresent = TRUE %in% (variables %in% ls(envir = .GlobalEnv))
 
@@ -53,22 +61,34 @@ Add_all = function(ClinVarCutoff = 4,
     }
   }
 
+  message("\nImporting Varvis Gene Management File\n")
   VarvisGeneManagement_HGNC = Add_HGNC()
   assign("VarvisGeneManagement_HGNC", VarvisGeneManagement_HGNC, envir = .GlobalEnv)
 
+  message("\nAdding HGMD Data\n")
   HGMD_count_HGNC = Add_HGMD(cutoff = HGMDCutoff)
   assign("HGMD_count_HGNC", HGMD_count_HGNC, envir = .GlobalEnv)
 
+  message("\nAdding OMIM Data\n")
   morbidmap_reshape = Add_OMIM(.morbidmap = morbidmap, .mim2gene = mim2gene)
   assign("morbidmap_reshape", morbidmap_reshape, envir = .GlobalEnv)
 
+  message("\nAdding ClinVar Data\n")
   clinvar_tsv_filtered_patho_HGNC = Add_ClinVar(cutoff = ClinVarCutoff, .mim2gene = mim2gene)
   assign("clinvar_tsv_filtered_patho_HGNC", clinvar_tsv_filtered_patho_HGNC, envir = .GlobalEnv)
 
-  PanelAppGenes = Add_PanelApp(PanelAppFile = panelAppFile)
+  message("\nAdding PanelApp Genes\n")
+  PanelAppGenes = Add_PanelApp(Panel = PanelApp_Panel, confidence = PanelApp_confidence,
+                               download = downloadPanelApp)
   assign("PanelAppGenes", PanelAppGenes, envir = .GlobalEnv)
 
+  message("\nAdding Manual Genes\n")
   Manual = Add_ManualGenes(ManualFile = manualFile)
   assign("Manual", Manual, envir = .GlobalEnv)
+
+  message("\nAdding SysNDD Genes\n")
+  SysNDD = Add_SysNDD(category = SysNDD_category, inheritance = SysNDD_inheritance,
+                      download = download_SysNDD)
+  assign("SysNDD", SysNDD, envir = .GlobalEnv)
 
 }

@@ -13,6 +13,7 @@
 #' @export
 #'
 #' @import dplyr
+#' @importFrom purrr discard
 #'
 #' @examples
 #' \dontrun{

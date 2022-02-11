@@ -19,6 +19,7 @@
 
 Add_OMIM = function(.morbidmap = morbidmap, .mim2gene = mim2gene){
 
+
   morbidmap_reshape <- morbidmap %>%
     left_join(mim2gene, by = "MIM_Number") %>%
     separate(Phenotype, c("Phenotype", "phenotype_mapping_key"),
@@ -40,5 +41,6 @@ Add_OMIM = function(.morbidmap = morbidmap, .mim2gene = mim2gene){
                      Phenotype_MIM_Numbers = paste(Phenotype_MIM_Number, collapse=","),
                      MIM_Numbers = paste(unique(MIM_Number), collapse=",")) %>%
     ungroup()
+
   return(morbidmap_reshape)
 }

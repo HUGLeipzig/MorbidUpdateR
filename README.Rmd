@@ -31,7 +31,7 @@ Morbid Genes Panel.
 
 You can install the development version from [GitHub](https://github.com/HUGLeipzig/MorbidUpdateR) with:
 
-```{r Installation}
+```{r Installation, eval=FALSE}
 # install.packages("devtools")
 GitHubToken = "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"
 devtools::install_github("HUGLeipzig/MorbidUpdateR", auth_token = GitHubToken)
