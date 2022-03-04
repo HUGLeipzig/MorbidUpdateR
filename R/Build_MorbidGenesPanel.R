@@ -59,10 +59,10 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
     left_join(.SysNDD,
               by = c("HGNC_symbol_corrected" = "SysNDDGene"),
               na_matches = "never") %>%
-    select("SYMBOL", "NAME", "CHROMOSOME", "start_position",
+    select("HGNC_symbol_corrected", "NAME", "CHROMOSOME", "start_position",
            "end_position", "CHROMOSOMELOCATION", "TRANSCRIPT",
-           "NCBIID", "OMIMID", "LRGID", "ENSEMBLID", "HGNCID", "symbol",
-           "HGNC_symbol_corrected", "HGMD_pathogenic_variant_count",
+           "NCBIID", "OMIMID", "LRGID", "ENSEMBLID", "HGNCID",
+           "HGMD_pathogenic_variant_count",
            "HGMD_pathogenic_variant_count_cutoff", "ClinVarPathogenicCount",
            "ClinVarPathogenicCount_cutoff","Phenotype","Phenotype_MIM_Numbers",
            "MIM_Numbers", "addedManually", "isPanelAppGene",
@@ -90,6 +90,16 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                      "has_Phenotype_MIM_Number")],
                                  na.rm = T)) %>%
     distinct()
+
+  colnames(MorbidGenes_Panel) = c("symbol", "name", "chromosome", "start_position",
+                                  "end_position", "chromosome_location", "transcript",
+                                  "id_ncbi", "id_omim", "id_lrg", "id_ensembl", "id_hgnc",
+                                  "hgmd_pathogenic_count",
+                                  "hgmd_pathogenic_cutoff", "clinvar_pathogenic_count",
+                                  "clinvar_pathogenic_cutoff","phenotype","phenotype_mim_numbers",
+                                  "mim_numbers", "manually_added", "panelapp",
+                                  "panelapp_UK", "panelapp_australia", "sysndd",
+                                  "omim_phenotype", "keep", "morbidscore")
 
   # check if the directory string ends with a "\" or "/" and append if not
   directory = ifelse(grepl("/$|\\$", directory),
