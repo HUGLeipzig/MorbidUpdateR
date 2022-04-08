@@ -4,11 +4,19 @@
 \alias{Add_HGNC}
 \title{Add the HGNC Data and genomic positions (GRCh38) to the Varvis Gene Management file}
 \usage{
-Add_HGNC(.VarvisGeneManagement = VarvisGeneManagement)
+Add_HGNC(
+  .VarvisGeneManagement = VarvisGeneManagement,
+  directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
+  version = format(Sys.time(), "\%Y-\%m")
+)
 }
 \arguments{
 \item{.VarvisGeneManagement}{The Varvis Gene Management file.
 Should be in your global environment after running \code{\link{StartNewVersion}}}
+
+\item{directory}{The same you provided in \code{\link{StartNewVersion}}}
+
+\item{version}{The same you provided in \code{\link{StartNewVersion}}}
 }
 \value{
 
