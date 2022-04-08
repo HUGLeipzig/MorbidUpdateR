@@ -2,7 +2,7 @@
 % Please edit documentation in R/Build_MorbidGenesPanel.R
 \name{Build_MorbidGenesPanel}
 \alias{Build_MorbidGenesPanel}
-\title{Title}
+\title{Build the final Morbid Genes Panel}
 \usage{
 Build_MorbidGenesPanel(
   directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
@@ -49,7 +49,7 @@ or in your Global Env after running \code{\link{Add_all}}}
 
 }
 \description{
-Title
+Build the final Morbid Genes Panel
 }
 \examples{
 \dontrun{

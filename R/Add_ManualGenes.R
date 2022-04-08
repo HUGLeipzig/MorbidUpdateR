@@ -16,7 +16,7 @@
 Add_ManualGenes = function(ManualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx"){
 
   Manual = read_excel(ManualFile,
-                      sheet = 1, col_names = c("Gene", "PMID"), trim_ws = F)
+                      sheet = 1, col_names = c("Gene", "PMID", "comment"), trim_ws = F)
 
   Manual = Manual %>%
     mutate(Gene = str_remove_all(string = Gene, pattern = "\\s")) %>%
