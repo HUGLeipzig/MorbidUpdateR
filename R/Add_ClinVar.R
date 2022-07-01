@@ -54,6 +54,7 @@ Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
 
   # look for corresponding gene in vcf
   get_GeneID = function(Gene){
+    Gene = paste0(Gene, ":")
     if(identical(tidy_clinvar_vcf_meta$GENEINFO[grepl(Gene, tidy_clinvar_vcf_meta$GENEINFO)],
                  character(0))){
       as.numeric(-1)
@@ -62,7 +63,7 @@ Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
       as.numeric(-1)
     } else{as.numeric(unique(tidy_clinvar_vcf_meta$GENEINFO[grepl(Gene, tidy_clinvar_vcf_meta$GENEINFO)]) %>%
                         str_split("\\|", simplify = T) %>%
-                        str_extract(paste0("^", Gene, ":[0-9]+")) %>%
+                        str_extract(paste0("^", Gene, "[0-9]+")) %>%
                         discard(is.na) %>%
                         unique() %>%
                         str_extract("[0-9]+$") %>%
@@ -75,8 +76,8 @@ Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
 
   clinvar_tsv_filtered_noGeneID$GeneID = sapply(clinvar_tsv_filtered_noGeneID$TranscriptGene, get_GeneID, simplify = "vector", USE.NAMES = F)
 
-  clinvar_tsv_filtered_noGeneID = clinvar_tsv_filtered_noGeneID %>%
-    filter(GeneID == -1)
+  #clinvar_tsv_filtered_noGeneID = clinvar_tsv_filtered_noGeneID %>%
+  #  filter(GeneID == -1)
 
   # combine clinvar tables
   clinvar_tsv_filtered_patho = rbind(clinvar_tsv_filtered_GeneID,
