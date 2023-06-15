@@ -7,6 +7,7 @@
 #' @param download_OMIM Should the current OMIM files be downloaded?
 #' @param download_ClinVar_tsv Should the current ClinVar tsv file be downloaded?
 #' @param download_ClinVar_vcf Should the current ClinVar vcf file be downloaded?
+#' @param download_GenCC Should the current ClinVar vcf file be downloaded?
 #' @param OMIM_ID Provide your personal OMIM ID which they sent you via email.
 #'
 #' @return
@@ -44,6 +45,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
                            download_OMIM = T,
                            download_ClinVar_tsv = T,
                            download_ClinVar_vcf = T,
+                           download_GenCC = T,
                            OMIM_ID = "s70QtrXSRDCaNVWaerCdPg"){
 
   ############################ PREFACE ####################################
@@ -52,12 +54,14 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   # these will be assigned within this funtion (with "assigned")
   # if yes, confirm to overwrite it
 
+  options('download.file.method'='curl')
+
   variables = c("VarvisGeneManagement",
                 "hgnc_complete_set",
                 "mim2gene", "mimTitles",
                 "genemap2", "morbidmap",
                 "tidy_clinvar_vcf_meta",
-                "clinvar_tsv_filtered")
+                "clinvar_tsv_filtered", "genecc_tsv")
 
   variablePresent = TRUE %in% (variables %in% ls(envir = .GlobalEnv))
 
@@ -80,6 +84,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   directory = ifelse(grepl("/$|\\$", directory),
                      directory,
                      paste0(directory, "/"))
+
 
   # check if a subversion is already present
   # if no, define subversion = 1
@@ -327,6 +332,39 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   assign("clinvar_tsv_filtered", clinvar_tsv_filtered, envir = .GlobalEnv)
 
 
+  ############################# GENCC DATA #####################################
+
+  if(download_GenCC == T){
+    message("\nDownloading GenCC Data\n")
+
+    download.file("https://search.thegencc.org/download/action/submissions-export-tsv",
+                  paste0(downloadDir, "GenCC_Data.tsv"), quiet = F)
+
+    gencc_path = downloadDir
+
+  } else {
+    message(paste0("\nReading GenCC tsv from ", prevVersion, "\n"))
+
+    file.copy(from = paste0(prevVersion, "/downloads/GenCC_Data.tsv"),
+              to = paste0(downloadDir, "GenCC_Data.tsv"),
+              copy.date = T)
+
+    gencc_path = paste0(prevVersion, "/downloads/")
+
+  }
+
+  message("\nReading GenCC Data\n")
+
+  gencc = read_tsv(paste0(gencc_path, "GenCC_Data.tsv"),
+                         col_select = c("uuid", "gene_curie", "gene_symbol",
+                                        "classification_title"),
+                         show_col_types = FALSE)
+
+  gencc = gencc %>%
+    mutate(hgnc_id = str_remove(gene_curie, "HGNC:"))
+
+
+  assign("gencc_tsv", gencc, envir = .GlobalEnv)
 
   ############################# FINALE ########################################
 

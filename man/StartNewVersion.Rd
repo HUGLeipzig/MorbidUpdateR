@@ -12,6 +12,7 @@ StartNewVersion(
   download_OMIM = T,
   download_ClinVar_tsv = T,
   download_ClinVar_vcf = T,
+  download_GenCC = T,
   OMIM_ID = "s70QtrXSRDCaNVWaerCdPg"
 )
 }
@@ -30,10 +31,9 @@ StartNewVersion(
 
 \item{download_ClinVar_vcf}{Should the current ClinVar vcf file be downloaded?}
 
-\item{OMIM_ID}{Provide your personal OMIM ID which they sent you via email.}
-}
-\value{
+\item{download_GenCC}{Should the current ClinVar vcf file be downloaded?}
 
+\item{OMIM_ID}{Provide your personal OMIM ID which they sent you via email.}
 }
 \description{
 Start New Morbid Genes Panel Version

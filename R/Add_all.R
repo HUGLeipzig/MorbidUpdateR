@@ -18,6 +18,8 @@
 #' @param SysNDD_inheritance See \code{\link{Add_SysNDD}} for details
 #' @param download_SysNDD See \code{\link{Add_SysNDD}} for details
 #' @param manualFile See \code{\link{Add_ManualGenes}} for details
+#' @param .gencc_tsv See \code{\link{Add_GenCC}} for details
+#' @param gencc_classification See \code{\link{Add_GenCC}} for details
 #' @param ... Additional arguments passed on to \code{\link{Add_ClinVar}}
 #'
 #' @return
@@ -38,6 +40,8 @@ Add_all = function(ClinVarCutoff = 4,
                    SysNDD_category = "Definitive",
                    SysNDD_inheritance = "All",
                    download_SysNDD = T,
+                   .gencc_tsv = gencc_tsv,
+                   gencc_classification = "Definitive",
                    manualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
                    ...){
 
@@ -90,5 +94,9 @@ Add_all = function(ClinVarCutoff = 4,
   SysNDD = Add_SysNDD(category = SysNDD_category, inheritance = SysNDD_inheritance,
                       download = download_SysNDD)
   assign("SysNDD", SysNDD, envir = .GlobalEnv)
+
+  message("\nAdding GenCC Genes\n")
+  gencc = Add_GenCC(.gencc_tsv = gencc_tsv, classification = gencc_classification)
+  assign("gencc", gencc, envir = .GlobalEnv)
 
 }

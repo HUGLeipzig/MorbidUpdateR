@@ -13,6 +13,7 @@
 #' @export
 #'
 #' @import dplyr
+#' @import stringr
 #' @importFrom purrr discard
 #'
 #' @examples
@@ -83,6 +84,7 @@ Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
   clinvar_tsv_filtered_patho = rbind(clinvar_tsv_filtered_GeneID,
                                      clinvar_tsv_filtered_noGeneID)
 
+
   clinvar_tsv_filtered_patho <- clinvar_tsv_filtered_patho %>%
     select(AlleleID, Name, ClinicalSignificance, GeneID, TranscriptGene) %>%
     add_count(TranscriptGene) %>%
@@ -93,6 +95,8 @@ Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
     ungroup() %>%
     filter(!is.na(TranscriptGene)) %>%
     mutate(ClinVarPathogenicCount_cutoff = (ClinVarPathogenicCount >= cutoff))
+
+  clinvar_tsv_filtered_patho$NcbiGeneID = as.double(clinvar_tsv_filtered_patho$NcbiGeneID)
 
   # add hgnc and omim
   clinvar_tsv_filtered_patho_HGNC <- clinvar_tsv_filtered_patho %>%

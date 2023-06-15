@@ -15,8 +15,10 @@ Add_all(
   SysNDD_category = "Definitive",
   SysNDD_inheritance = "All",
   download_SysNDD = T,
- 
-    manualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
+  .gencc_tsv = gencc_tsv,
+  gencc_classification = "Definitive",
+  manualFile =
+    "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
   ...
 )
 }
@@ -41,12 +43,13 @@ Add_all(
 
 \item{download_SysNDD}{See \code{\link{Add_SysNDD}} for details}
 
+\item{.gencc_tsv}{See \code{\link{Add_GenCC}} for details}
+
+\item{gencc_classification}{See \code{\link{Add_GenCC}} for details}
+
 \item{manualFile}{See \code{\link{Add_ManualGenes}} for details}
 
 \item{...}{Additional arguments passed on to \code{\link{Add_ClinVar}}}
-}
-\value{
-
 }
 \description{
 This is a convenience wrapper script utilizing \code{\link{Add_ManualGenes}},

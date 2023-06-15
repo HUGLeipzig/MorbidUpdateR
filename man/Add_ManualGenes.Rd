@@ -5,15 +5,12 @@
 \title{Add genes which have to be added manually from the Excel spreadsheet}
 \usage{
 Add_ManualGenes(
- 
-    ManualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx"
+  ManualFile =
+    "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx"
 )
 }
 \arguments{
 \item{ManualFile}{The path to the file where the Manual Genes are stored}
-}
-\value{
-
 }
 \description{
 Add genes which have to be added manually from the Excel spreadsheet

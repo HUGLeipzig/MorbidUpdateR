@@ -37,12 +37,9 @@ Add_SysNDD = function(category = "Definitive", inheritance = "All",
               col_names = T)
   } else {
 
-    SysNDDfile = read_tsv("W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/SysNDD_Genes.tsv",
+    SysNDD = read_tsv("W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/SysNDD_Genes.tsv",
                       col_names = T)
 
-    genes = unique(SysNDDfile$symbol)
-
-    SysNDD = data.frame(SysNDDGene = genes, isSysNDDGene = T)
   }
 
   return(SysNDD)

@@ -14,6 +14,8 @@
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param .SysNDD The result of the function \code{\link{Add_SysNDD}}
 #' or in your Global Env after running \code{\link{Add_all}}
+#' @param .gencc The result of the function \code{\link{Add_GenCC}}
+#' or in your Global Env after running \code{\link{Add_all}}
 #' @param .PanelAppGenes The result of the function \code{\link{Add_PanelApp}}
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param save should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory
@@ -38,6 +40,7 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                   .Manual = Manual,
                                   .PanelAppGenes = PanelAppGenes,
                                   .SysNDD = SysNDD,
+                                  .gencc = gencc,
                                   save = T){
 
   MorbidGenes_Panel = VarvisGeneManagement_HGNC %>%
@@ -59,6 +62,9 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
     left_join(.SysNDD,
               by = c("HGNC_symbol_corrected" = "SysNDDGene"),
               na_matches = "never") %>%
+    left_join(.gencc,
+              by = c("HGNC_symbol_corrected" = "gene_symbol"),
+              na_matches = "never") %>%
     select("HGNC_symbol_corrected", "NAME", "CHROMOSOME", "bed_hg19",
            "bed_hg38", "CHROMOSOMELOCATION", "TRANSCRIPT",
            "NCBIID", "OMIMID", "LRGID", "ENSEMBLID", "HGNCID",
@@ -66,7 +72,7 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
            "HGMD_pathogenic_variant_count_cutoff", "ClinVarPathogenicCount",
            "ClinVarPathogenicCount_cutoff","Phenotype","Phenotype_MIM_Numbers",
            "MIM_Numbers", "addedManually", "isPanelAppGene",
-           "isUKPanelAppGene", "isAustraliaPanelAppGene", "isSysNDDGene") %>%
+           "isUKPanelAppGene", "isAustraliaPanelAppGene", "isSysNDDGene", "isGenCCGene") %>%
     mutate(has_Phenotype_MIM_Number = !is.na(Phenotype_MIM_Numbers)) %>%
     mutate(keep = case_when(
       # Genes with HGMD cutoff
@@ -79,6 +85,8 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
       addedManually ~ TRUE,
       # SysID Genes
       isSysNDDGene ~ TRUE,
+      # GenCC Genes
+      isGenCCGene ~ TRUE,
       # has OMIM Phenotype
       has_Phenotype_MIM_Number ~ TRUE
     )) %>%
@@ -87,6 +95,7 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                      "ClinVarPathogenicCount_cutoff",
                                      "isPanelAppGene",
                                      "isSysNDDGene",
+                                     "isGenCCGene",
                                      "has_Phenotype_MIM_Number")],
                                  na.rm = T)) %>%
     distinct()
@@ -99,7 +108,7 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                   "clinvar_pathogenic_cutoff","phenotype","phenotype_mim_numbers",
                                   "mim_numbers", "manually_added", "panelapp",
                                   "panelapp_UK", "panelapp_australia", "sysndd",
-                                  "omim_phenotype", "morbidgene", "morbidscore")
+                                  "gencc", "omim_phenotype", "morbidgene", "morbidscore")
 
   # check if the directory string ends with a "\" or "/" and append if not
   directory = ifelse(grepl("/$|\\$", directory),

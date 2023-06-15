@@ -36,10 +36,10 @@ Add_HGNC = function(.VarvisGeneManagement = VarvisGeneManagement,
   ##### get genomic position via Ensembl/BiomaRt #####
   ##### define functions #####
 
-  mart_hg19 <- useMart("ensembl", host="grch37.ensembl.org")
+  mart_hg19 <- useMart("ensembl", host="https://grch37.ensembl.org")
   mart_hg19 <- useDataset("hsapiens_gene_ensembl", mart_hg19)
 
-  mart_hg38 <- useMart("ensembl", host="ensembl.org")
+  mart_hg38 <- useMart("ensembl", host="https://www.ensembl.org")
   mart_hg38 <- useDataset("hsapiens_gene_ensembl", mart_hg38)
 
   # function to retrive bed format style gene coordinates

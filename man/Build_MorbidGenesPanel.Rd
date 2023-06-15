@@ -14,6 +14,7 @@ Build_MorbidGenesPanel(
   .Manual = Manual,
   .PanelAppGenes = PanelAppGenes,
   .SysNDD = SysNDD,
+  .gencc = gencc,
   save = T
 )
 }
@@ -43,10 +44,10 @@ or in your Global Env after running \code{\link{Add_all}}}
 \item{.SysNDD}{The result of the function \code{\link{Add_SysNDD}}
 or in your Global Env after running \code{\link{Add_all}}}
 
-\item{save}{should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory}
-}
-\value{
+\item{.gencc}{The result of the function \code{\link{Add_GenCC}}
+or in your Global Env after running \code{\link{Add_all}}}
 
+\item{save}{should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory}
 }
 \description{
 Build the final Morbid Genes Panel
