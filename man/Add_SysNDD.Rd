@@ -15,6 +15,9 @@ Add_SysNDD(category = "Definitive", inheritance = "All", download = T)
 
 \item{download}{Should the latest SysNDD be downloaded? If not, previous version will be used}
 }
+\value{
+A dataframe with the SysNDD genes
+}
 \description{
 Add Genes from the SysNDD Database
 }

@@ -5,13 +5,14 @@
 #' 2 (minimum amber genes) or the default 3 (minimum green genes)
 #' @param download Should the latest data be downloaded? If not, the previous versions will be read
 #'
-#' @return
+#' @return A dataframe with the PanelApp genes
 #' @export
 #'
 #' @import dplyr
 #' @import readr
 #' @import httr
 #' @import jsonlite
+#' @import config
 #'
 #' @examples
 #' \dontrun{
@@ -117,11 +118,11 @@ Add_PanelApp = function(Panel = "both", confidence = 3,
       mutate(isPanelAppGene = TRUE) %>%
       select(-confidence_level)
 
-    write_tsv(PanelAppResult, "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppResult.tsv",
+    write_tsv(PanelAppResult, config::get("panelapp_tsv_path"),
               col_names = T)
   } else {
 
-    PanelAppResult = read_tsv("W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppResult.tsv",
+    PanelAppResult = read_tsv(config::get("panelapp_tsv_path"),
                               col_names = T)
 
   }

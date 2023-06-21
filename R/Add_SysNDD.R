@@ -6,12 +6,13 @@
 #' "Dominant", "Other", "Recessive" or "X-linked"
 #' @param download Should the latest SysNDD be downloaded? If not, previous version will be used
 #'
-#' @return
+#' @return A dataframe with the SysNDD genes
 #' @export
 #'
 #' @import httr
 #' @import jsonlite
 #' @import readr
+#' @import config
 #'
 #' @examples
 #' \dontrun{
@@ -33,11 +34,11 @@ Add_SysNDD = function(category = "Definitive", inheritance = "All",
 
     SysNDD = data.frame(SysNDDGene = genes, isSysNDDGene = T)
 
-    write_tsv(SysNDD, "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/SysNDD_Genes.tsv",
+    write_tsv(SysNDD, config::get("sysndd_tsv_path"),
               col_names = T)
   } else {
 
-    SysNDD = read_tsv("W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/SysNDD_Genes.tsv",
+    SysNDD = read_tsv(config::get("sysndd_tsv_path"),
                       col_names = T)
 
   }

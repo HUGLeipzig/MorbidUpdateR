@@ -31,6 +31,17 @@ GitHubToken = "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"
 devtools::install_github("HUGLeipzig/MorbidUpdateR", auth_token = GitHubToken)
 ```
 
+## Config file
+
+Some functions require values specified in a config.yml file. The required values are: 
+- `omim_id`: your personal OMIM identifier, needed for downloading the OMIM files
+- `varvis_target`: your Varvis target, needed for the URL generation, e.g. "your-university"
+- `varvis_user`: the username for your Varvis API
+- `varvis_password`: the password for your Varvis API (can be Unicode)
+- `hgmd_csv_path`: the path and filename to your stored HGMD csv file
+- `panelapp_tsv_path`: the path and filename where the PanelApp downloads should be stored
+- `sysndd_tsv_path`: the path and filename where the SysNDD downloads should be stored
+
 ## Getting started
 
 The package contains several function, most of them can be run "as is" without 
@@ -53,4 +64,21 @@ Build_MorbidGenesPanel()
 That's basically it. For a more comprehensive list of variables and how to manipulate 
 your input/output files, just run `?function` in the command line
 
+## Default CutOffs
 
+The functions in this package have precomputed cutoffs to determine if a gene is a morbidgene or not. If _**ONE**_ of the following points is true, then a genes is considered to be a morbidgene:
+
+- `>=4` pathogenic variants in **ClinVar**
+    - column `clinvar_pathogenic_cutoff`
+- `>=4` pathogenic variants in **HGMD** (= "DM" Variant)
+    - column `hgmd_pathogenic_cutoff`
+- `TRUE` has an **OMIM** phenotype
+    - column `omim_phenotype`
+- `TRUE` is present in **PanelApp** England _OR_ **PanelApp** Australia
+    - column `panelapp`
+- `TRUE` is present in **GenCC**
+    - column `gencc`
+- `TRUE` is present in **SysNDD**
+    - column `sysndd`
+- `TRUE` was added **manually**
+    - column `manually_added`

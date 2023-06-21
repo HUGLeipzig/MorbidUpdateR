@@ -20,7 +20,7 @@
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param save should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory
 #'
-#' @return
+#' @return Assigns the MorbidGenes Panel to the global environment
 #' @export
 #'
 #' @import readr

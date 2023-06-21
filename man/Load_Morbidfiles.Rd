@@ -14,6 +14,9 @@ Load_Morbidfiles(directory, .ClinVarCutoff = 4, .HGMDCutoff = 4)
 
 \item{.HGMDCutoff}{HGMD's pathogenic cutoff value. See \code{\link{Add_HGMD}} for details}
 }
+\value{
+Loads all files to the global environment
+}
 \description{
 This is a convenience wrapper script utilizing \code{\link{Add_ManualGenes}},
 \code{\link{Add_PanelApp}}, \code{\link{Add_ClinVar}}, \code{\link{Add_OMIM}},
@@ -24,3 +27,8 @@ This is a convenience wrapper script utilizing \code{\link{Add_ManualGenes}},
 This script will add all the relevant variables to your global environment for convenience reasons
 }
 
+\examples{
+\dontrun{
+Load_Morbidfiles(directory = "path/to/morbidgenesfiles")
+}
+}

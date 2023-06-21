@@ -12,14 +12,16 @@
 #' @param .ClinVarCutoff ClinVar's pathogenic cutoff value. See \code{\link{Add_ClinVar}} for details
 #' @param .HGMDCutoff HGMD's pathogenic cutoff value. See \code{\link{Add_HGMD}} for details
 #'
-#' @return
+#' @return Loads all files to the global environment
 #' @export
 #'
 #' @import readr
 #' @import dplyr
 #'
 #' @examples
-#'
+#' \dontrun{
+#' Load_Morbidfiles(directory = "path/to/morbidgenesfiles")
+#' }
 
 Load_Morbidfiles = function(directory,
                             .ClinVarCutoff = 4, .HGMDCutoff = 4){

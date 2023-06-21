@@ -5,7 +5,7 @@
 #' @param directory The same you provided in \code{\link{StartNewVersion}}
 #' @param version The same you provided in \code{\link{StartNewVersion}}
 #'
-#' @return
+#' @return A dataframe with the HGNC Data
 #' @export
 #'
 #' @import dplyr

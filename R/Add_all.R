@@ -22,7 +22,7 @@
 #' @param gencc_classification See \code{\link{Add_GenCC}} for details
 #' @param ... Additional arguments passed on to \code{\link{Add_ClinVar}}
 #'
-#' @return
+#' @return Assigns all values to the global environment
 #' @export
 #'
 #' @examples

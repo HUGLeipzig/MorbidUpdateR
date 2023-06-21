@@ -9,6 +9,9 @@ Add_HGMD(cutoff = 4)
 \arguments{
 \item{cutoff}{minimum number of pathogenic variants per gene to be included into the Morbid Genes panel}
 }
+\value{
+A dataframe with the HGMD genes
+}
 \description{
 Add HGMD Data and determine pathogenic cutoff
 }

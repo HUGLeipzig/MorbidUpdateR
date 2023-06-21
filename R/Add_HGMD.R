@@ -2,10 +2,11 @@
 #'
 #' @param cutoff minimum number of pathogenic variants per gene to be included into the Morbid Genes panel
 #'
-#' @return
+#' @return A dataframe with the HGMD genes
 #' @export
 #'
 #' @import dplyr
+#' @import config
 #'
 #' @examples
 #' \dontrun{
@@ -13,7 +14,7 @@
 #' }
 
 Add_HGMD = function(cutoff = 4){
-  HGMD = read_csv("W:/HUG/04 Klinische Genomik/09 HGMD Download and Analyses/HGMD_Advanced_Substitutions.csv.gz",
+  HGMD = read_csv(config::get("hgmd_csv_path"),
                   col_select = c("gene", "entrezid", "Variant_class"))
 
   HGMD_count = HGMD %>%

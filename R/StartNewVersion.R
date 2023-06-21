@@ -8,9 +8,8 @@
 #' @param download_ClinVar_tsv Should the current ClinVar tsv file be downloaded?
 #' @param download_ClinVar_vcf Should the current ClinVar vcf file be downloaded?
 #' @param download_GenCC Should the current ClinVar vcf file be downloaded?
-#' @param OMIM_ID Provide your personal OMIM ID which they sent you via email.
 #'
-#' @return
+#' @return Generates a new folder and downloads data
 #' @export
 #'
 #' @import jsonlite
@@ -21,6 +20,7 @@
 #' @import httr
 #' @import dplyr
 #' @import stringi
+#' @import config
 #'
 #' @details The files needed for the next step will also be added to the global environment.
 #' If you do not download the latest datasets, the ones from the previous version
@@ -45,8 +45,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
                            download_OMIM = T,
                            download_ClinVar_tsv = T,
                            download_ClinVar_vcf = T,
-                           download_GenCC = T,
-                           OMIM_ID = "s70QtrXSRDCaNVWaerCdPg"){
+                           download_GenCC = T){
 
   ############################ PREFACE ####################################
 
@@ -114,11 +113,11 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   if(download_varvis == T){
     message("\nDownloading Varvis Data\n")
 
-    target='uni-leipzig'
-    user_name='hugapi'
+    target=config::get("varvis_target")
+    user_name=config::get("varvis_user")
 
     # parse the password as unicode because of the special characters
-    password = stri_unescape_unicode("\u00a723R\u201c3r/\u0026R")
+    password = stri_unescape_unicode(config::get("varvis_password"))
 
       # 1) Get CSRF token and session ID to log in
     res = GET(paste0("https://", target, ".varvis.com/authenticate"))
@@ -190,6 +189,8 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   # download OMIM files
   if(download_OMIM == T){
     message("\nDownloading OMIM Data\n")
+
+    OMIM_ID = config::get("omim_id")
 
     download.file("https://omim.org/static/omim/data/mim2gene.txt",
                   paste0(downloadDir, "mim2gene.txt"), quiet=F)

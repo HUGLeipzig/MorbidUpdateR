@@ -1,11 +1,11 @@
 #' Add Genes from the GenCC Database
 #'
-#' @param .gencc The GenCC tsv file.
+#' @param .gencc_tsv The GenCC tsv file.
 #' Should be in your global environment after running \code{\link{StartNewVersion}}
 #' @param classification The confidence of GenCC-Genes. One of "Definitive" (default),
 #' "Limited", "Moderate", "Refuted" or "All"
 #'
-#' @return
+#' @return A dataframe with the GenCC genes
 #' @export
 #'
 #' @import stringr

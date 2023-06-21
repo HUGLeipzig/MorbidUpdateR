@@ -9,7 +9,7 @@
 #' @param cutoff minimum number of pathogenic variants per gene to be included into the Morbid Genes panel
 #' @param print_NonMatching Should the Transcriptgenes be printed which do not match the HGNC nomenclature?
 #'
-#' @return
+#' @return A dataframe with the ClinVar genes
 #' @export
 #'
 #' @import dplyr

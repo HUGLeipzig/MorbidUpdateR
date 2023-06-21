@@ -13,6 +13,9 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 \item{.mim2gene}{The mim2gene file from OMIM.
 Should be in your global environment after running \code{\link{StartNewVersion}}}
 }
+\value{
+A dataframe with the OMIM data
+}
 \description{
 Reshape the morbidmap to be added to the Panel
 }

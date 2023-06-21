@@ -51,6 +51,9 @@ Add_all(
 
 \item{...}{Additional arguments passed on to \code{\link{Add_ClinVar}}}
 }
+\value{
+Assigns all values to the global environment
+}
 \description{
 This is a convenience wrapper script utilizing \code{\link{Add_ManualGenes}},
 \code{\link{Add_PanelApp}}, \code{\link{Add_ClinVar}}, \code{\link{Add_OMIM}},

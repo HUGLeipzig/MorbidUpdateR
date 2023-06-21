@@ -7,11 +7,14 @@
 Add_GenCC(.gencc_tsv = gencc_tsv, classification = "Definitive")
 }
 \arguments{
+\item{.gencc_tsv}{The GenCC tsv file.
+Should be in your global environment after running \code{\link{StartNewVersion}}}
+
 \item{classification}{The confidence of GenCC-Genes. One of "Definitive" (default),
 "Limited", "Moderate", "Refuted" or "All"}
-
-\item{.gencc}{The GenCC tsv file.
-Should be in your global environment after running \code{\link{StartNewVersion}}}
+}
+\value{
+A dataframe with the GenCC genes
 }
 \description{
 Add Genes from the GenCC Database

@@ -26,6 +26,9 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 
 \item{print_NonMatching}{Should the Transcriptgenes be printed which do not match the HGNC nomenclature?}
 }
+\value{
+A dataframe with the ClinVar genes
+}
 \description{
 Add the data from both Clinvar files
 }

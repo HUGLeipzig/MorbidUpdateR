@@ -2,7 +2,7 @@
 #'
 #' @param ManualFile The path to the file where the Manual Genes are stored
 #'
-#' @return
+#' @return A dataframe with the manually added genes
 #' @export
 #'
 #' @import dplyr

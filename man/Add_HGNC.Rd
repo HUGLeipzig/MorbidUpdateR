@@ -18,6 +18,9 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 
 \item{version}{The same you provided in \code{\link{StartNewVersion}}}
 }
+\value{
+A dataframe with the HGNC Data
+}
 \description{
 Add the HGNC Data and genomic positions (GRCh38) to the Varvis Gene Management file
 }

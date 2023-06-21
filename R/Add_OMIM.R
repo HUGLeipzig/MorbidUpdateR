@@ -5,7 +5,7 @@
 #' @param .mim2gene The mim2gene file from OMIM.
 #' Should be in your global environment after running \code{\link{StartNewVersion}}
 #'
-#' @return
+#' @return A dataframe with the OMIM data
 #' @export
 #'
 #' @import dplyr

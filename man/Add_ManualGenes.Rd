@@ -12,6 +12,9 @@ Add_ManualGenes(
 \arguments{
 \item{ManualFile}{The path to the file where the Manual Genes are stored}
 }
+\value{
+A dataframe with the manually added genes
+}
 \description{
 Add genes which have to be added manually from the Excel spreadsheet
 }

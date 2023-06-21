@@ -14,6 +14,9 @@ Add_PanelApp(Panel = "both", confidence = 3, download = T)
 
 \item{download}{Should the latest data be downloaded? If not, the previous versions will be read}
 }
+\value{
+A dataframe with the PanelApp genes
+}
 \description{
 Add the PanelApp Genes
 }

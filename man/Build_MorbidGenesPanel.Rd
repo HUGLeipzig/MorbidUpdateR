@@ -49,6 +49,9 @@ or in your Global Env after running \code{\link{Add_all}}}
 
 \item{save}{should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory}
 }
+\value{
+Assigns the MorbidGenes Panel to the global environment
+}
 \description{
 Build the final Morbid Genes Panel
 }
