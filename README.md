@@ -74,11 +74,11 @@ The functions in this package have precomputed cutoffs to determine if a gene is
     - column `hgmd_pathogenic_cutoff`
 - `TRUE` has an **OMIM** phenotype
     - column `omim_phenotype`
-- `TRUE` is present in **PanelApp** England _OR_ **PanelApp** Australia
+- `TRUE` is green gene in **PanelApp** England _OR_ **PanelApp** Australia
     - column `panelapp`
-- `TRUE` is present in **GenCC**
+- `TRUE` has status 'definitive' in **GenCC**
     - column `gencc`
-- `TRUE` is present in **SysNDD**
+- `TRUE` has status 'definite' in **SysNDD**
     - column `sysndd`
 - `TRUE` was added **manually**
     - column `manually_added`

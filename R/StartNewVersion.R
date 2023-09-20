@@ -163,7 +163,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   if(download_HGNC == T){
     message("\nDownloading HGNC Data\n")
 
-    download.file("ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt",
+    download.file("https://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt",
                   paste0(downloadDir, "hgnc_complete_set.txt"), quiet=F)
     hgnc_path = downloadDir
 
