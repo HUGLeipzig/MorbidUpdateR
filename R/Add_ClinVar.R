@@ -87,24 +87,22 @@ Add_ClinVar = function(.clinvar_tsv_filtered = clinvar_tsv_filtered,
 
   clinvar_tsv_filtered_patho <- clinvar_tsv_filtered_patho %>%
     select(AlleleID, Name, ClinicalSignificance, GeneID, TranscriptGene) %>%
-    add_count(TranscriptGene) %>%
-    group_by(TranscriptGene) %>%
+    add_count(GeneID) %>%
+    group_by(GeneID) %>%
     summarise(CinSigs = paste(ClinicalSignificance, collapse=","),
                      ALLELEIDs = paste(AlleleID, collapse=","),
                      NcbiGeneID = unique(GeneID), ClinVarPathogenicCount = unique(n)) %>%
     ungroup() %>%
-    filter(!is.na(TranscriptGene)) %>%
+    #filter(!is.na(TranscriptGene)) %>%
     mutate(ClinVarPathogenicCount_cutoff = (ClinVarPathogenicCount >= cutoff))
 
   clinvar_tsv_filtered_patho$NcbiGeneID = as.double(clinvar_tsv_filtered_patho$NcbiGeneID)
 
   # add hgnc and omim
   clinvar_tsv_filtered_patho_HGNC <- clinvar_tsv_filtered_patho %>%
-    left_join(mim2gene, by = c("NcbiGeneID" = "Entrez_Gene_ID_NCBI"))
-
-  if(print_NonMatching == T){
-    clinvar_tsv_filtered_patho_HGNC %>% filter(TranscriptGene != Approved_Gene_Symbol_HGNC)
-  }
+    left_join((mim2gene %>%
+                 select(Entrez_Gene_ID_NCBI, Approved_Gene_Symbol_HGNC)),
+              by = c("NcbiGeneID" = "Entrez_Gene_ID_NCBI"))
 
 
   return(clinvar_tsv_filtered_patho_HGNC)
