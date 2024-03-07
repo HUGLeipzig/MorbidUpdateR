@@ -1,5 +1,6 @@
-default: 
+default:
   omim_id: "s70QtrXSRDCaNVWaerCdPg"
+  #omim_id: "YnTlekLKSu6SpKlNffHnQQ"
   varvis_target: 'uni-leipzig'
   varvis_user: 'hugapi'
   varvis_password: "\u00a723R\u201c3r/\u0026R"
