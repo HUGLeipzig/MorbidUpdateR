@@ -5,6 +5,7 @@
 \title{Run all relevant scripts before you build the Morbid Genes Panel}
 \usage{
 Add_all(
+  add_coordinates = T,
   ClinVarCutoff = 4,
   HGMDCutoff = 4,
   .morbidmap = morbidmap,
@@ -23,6 +24,8 @@ Add_all(
 )
 }
 \arguments{
+\item{add_coordinates}{Add genomic coordinates from Ensembl, see \code{\link{Add_HGNC}} for details}
+
 \item{ClinVarCutoff}{ClinVar's pathogenic cutoff value. See \code{\link{Add_ClinVar}} for details}
 
 \item{HGMDCutoff}{HGMD's pathogenic cutoff value. See \code{\link{Add_HGMD}} for details}

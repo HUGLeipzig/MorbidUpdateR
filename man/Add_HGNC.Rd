@@ -7,7 +7,8 @@
 Add_HGNC(
   .VarvisGeneManagement = VarvisGeneManagement,
   directory = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/",
-  version = format(Sys.time(), "\%Y-\%m")
+  version = format(Sys.time(), "\%Y-\%m"),
+  add_coordinates = T
 )
 }
 \arguments{
@@ -17,6 +18,8 @@ Should be in your global environment after running \code{\link{StartNewVersion}}
 \item{directory}{The same you provided in \code{\link{StartNewVersion}}}
 
 \item{version}{The same you provided in \code{\link{StartNewVersion}}}
+
+\item{add_coordinates}{Add genomic coordinates from Ensembl. Can be set to F if Ensembl is down}
 }
 \value{
 A dataframe with the HGNC Data

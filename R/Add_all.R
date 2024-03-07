@@ -7,6 +7,7 @@
 #' @section Warning:
 #' This script will add all the relevant variables to your global environment for convenience reasons
 #'
+#' @param add_coordinates Add genomic coordinates from Ensembl, see \code{\link{Add_HGNC}} for details
 #' @param ClinVarCutoff ClinVar's pathogenic cutoff value. See \code{\link{Add_ClinVar}} for details
 #' @param HGMDCutoff HGMD's pathogenic cutoff value. See \code{\link{Add_HGMD}} for details
 #' @param .morbidmap See \code{\link{Add_HGNC}} for details
@@ -30,7 +31,8 @@
 #' Add_all(ClinVarCutoff = 4, mim2gene = mim2gene)
 #' }
 
-Add_all = function(ClinVarCutoff = 4,
+Add_all = function(add_coordinates = T,
+                   ClinVarCutoff = 4,
                    HGMDCutoff = 4,
                    .morbidmap = morbidmap,
                    .mim2gene = mim2gene,
@@ -66,7 +68,7 @@ Add_all = function(ClinVarCutoff = 4,
   }
 
   message("\nImporting Varvis Gene Management File\n")
-  VarvisGeneManagement_HGNC = Add_HGNC()
+  VarvisGeneManagement_HGNC = Add_HGNC(add_coordinates = add_coordinates)
   assign("VarvisGeneManagement_HGNC", VarvisGeneManagement_HGNC, envir = .GlobalEnv)
 
   message("\nAdding HGMD Data\n")
