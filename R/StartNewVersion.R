@@ -367,6 +367,10 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   assign("gencc_tsv", gencc, envir = .GlobalEnv)
 
+  ############################# LookUp Table ###############################
+  lookup = read_csv2(paste0(prevVersion, "/LookUpTable_FirstOccurrence.csv"))
+  assign("lookup", lookup, envir = .GlobalEnv)
+
   ############################# FINALE ########################################
 
   message(paste0("\nSuccess! All files have been successfully downloaded to ",

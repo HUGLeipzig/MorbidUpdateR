@@ -25,6 +25,7 @@
 #'
 #' @import readr
 #' @import dplyr
+#' @import stringr
 #'
 #' @examples
 #' \dontrun{
@@ -110,6 +111,22 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                   "panelapp_UK", "panelapp_australia", "sysndd",
                                   "gencc", "omim_phenotype", "morbidgene", "morbidscore")
 
+  # check which gene is new and append the lookup table with the hgnc id and version
+  lookup_new = lookup
+  version_underscore = str_replace(version, "-", "_")
+
+  for(id in (MorbidGenes_Panel %>% filter(morbidscore >0))$id_hgnc){
+    if(!(id %in% lookup$id_hgnc)){
+      lookup_new = rbind(lookup_new, c(id, version_underscore))
+      }
+    }
+
+  lookup_new = lookup_new %>%
+    mutate(id_hgnc = as.numeric(id_hgnc))
+
+  MorbidGenes_Panel = MorbidGenes_Panel %>%
+    left_join(., lookup_new, by = "id_hgnc")
+
   # check if the directory string ends with a "\" or "/" and append if not
   directory = ifelse(grepl("/$|\\$", directory),
                      directory,
@@ -121,6 +138,9 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
   files = list.files(path = directory)
 
   filename = tail(sort(files[grep(version, files)]), n = 1)
+
+  write_csv2(lookup_new,
+             paste0(directory, filename, "/LookUpTable_FirstOccurrence.csv"))
 
   if(save == T){
     write_csv2(MorbidGenes_Panel,
