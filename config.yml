@@ -7,3 +7,5 @@ default:
   hgmd_csv_path: "W:/HUG/04 Klinische Genomik/09 HGMD Download and Analyses/HGMD_Advanced_Substitutions.csv.gz"
   panelapp_tsv_path: "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/PanelAppResult.tsv"
   sysndd_tsv_path: "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/SysNDD_Genes.tsv"
+  pseudogenes_tsv_path: "W:/HUG/04 Klinische Genomik/06 Literatur & Datenbanken/Pseudogenes/gencode.v10.pgene.parents.txt"
+  strs_tsv_path: "W:/HUG/04 Klinische Genomik/06 Literatur & Datenbanken/STRs/STRchive-disease-loci-v2.3.1.hg38.0yUeQkLW.bed"

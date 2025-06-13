@@ -15,6 +15,7 @@ Build_MorbidGenesPanel(
   .PanelAppGenes = PanelAppGenes,
   .SysNDD = SysNDD,
   .gencc = gencc,
+  .PathoClinVarVars = PathoClinVarVars,
   save = T
 )
 }
@@ -45,6 +46,9 @@ or in your Global Env after running \code{\link{Add_all}}}
 or in your Global Env after running \code{\link{Add_all}}}
 
 \item{.gencc}{The result of the function \code{\link{Add_GenCC}}
+or in your Global Env after running \code{\link{Add_all}}}
+
+\item{.PathoClinVarVars}{The result of the function \code{\link{Add_Pathomechanisms}}
 or in your Global Env after running \code{\link{Add_all}}}
 
 \item{save}{should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory}

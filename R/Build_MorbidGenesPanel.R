@@ -18,6 +18,8 @@
 #' or in your Global Env after running \code{\link{Add_all}}
 #' @param .PanelAppGenes The result of the function \code{\link{Add_PanelApp}}
 #' or in your Global Env after running \code{\link{Add_all}}
+#' @param .PathoClinVarVars The result of the function \code{\link{Add_Pathomechanisms}}
+#' or in your Global Env after running \code{\link{Add_all}}
 #' @param save should the Panel be saved as a .csv? Defaults to Yes in the corresponding directory
 #'
 #' @return Assigns the MorbidGenes Panel to the global environment
@@ -42,6 +44,7 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                   .PanelAppGenes = PanelAppGenes,
                                   .SysNDD = SysNDD,
                                   .gencc = gencc,
+                                  .PathoClinVarVars = PathoClinVarVars,
                                   save = T){
 
   MorbidGenes_Panel = VarvisGeneManagement_HGNC %>%
@@ -111,6 +114,11 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
                                   "panelapp_UK", "panelapp_australia", "sysndd",
                                   "gencc", "omim_phenotype", "morbidgene", "morbidscore")
 
+  MorbidGenes_Panel = MorbidGenes_Panel %>%
+    left_join(.PathoClinVarVars,
+              by = c("symbol" = "GeneSymbol"),
+              na_matches = "never")
+
   # check which gene is new and append the lookup table with the hgnc id and version
   lookup_new = lookup
   version_underscore = str_replace(version, "-", "_")
@@ -124,8 +132,11 @@ Build_MorbidGenesPanel = function(directory = "W:/HUG/04 Klinische Genomik/10 Pa
   lookup_new = lookup_new %>%
     mutate(id_hgnc = as.numeric(id_hgnc))
 
+  # Add Lookup table and pseudogenes
+
   MorbidGenes_Panel = MorbidGenes_Panel %>%
-    left_join(., lookup_new, by = "id_hgnc")
+    left_join(., lookup_new, by = "id_hgnc") %>%
+    left_join(., pseudogenes, by = "symbol", na_matches = "never")
 
   # check if the directory string ends with a "\" or "/" and append if not
   directory = ifelse(grepl("/$|\\$", directory),

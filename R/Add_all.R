@@ -2,7 +2,7 @@
 #'
 #' @description This is a convenience wrapper script utilizing \code{\link{Add_ManualGenes}},
 #' \code{\link{Add_PanelApp}}, \code{\link{Add_ClinVar}}, \code{\link{Add_OMIM}},
-#' \code{\link{Add_HGMD}}, \code{\link{Add_HGNC}}.
+#' \code{\link{Add_HGMD}}, \code{\link{Add_HGNC}} and \code{\link{Add_Pathomechanisms}}.
 #'
 #' @section Warning:
 #' This script will add all the relevant variables to your global environment for convenience reasons
@@ -21,6 +21,7 @@
 #' @param manualFile See \code{\link{Add_ManualGenes}} for details
 #' @param .gencc_tsv See \code{\link{Add_GenCC}} for details
 #' @param gencc_classification See \code{\link{Add_GenCC}} for details
+#' @param .clinvar_tsv_filtered2 See \code{\link{Add_Pathomechanisms}} for details
 #' @param ... Additional arguments passed on to \code{\link{Add_ClinVar}}
 #'
 #' @return Assigns all values to the global environment
@@ -44,6 +45,7 @@ Add_all = function(add_coordinates = T,
                    download_SysNDD = T,
                    .gencc_tsv = gencc_tsv,
                    gencc_classification = "Definitive",
+                   .clinvar_tsv_filtered2 = clinvar_tsv_filtered,
                    manualFile = "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
                    ...){
 
@@ -100,5 +102,9 @@ Add_all = function(add_coordinates = T,
   message("\nAdding GenCC Genes\n")
   gencc = Add_GenCC(.gencc_tsv = gencc_tsv, classification = gencc_classification)
   assign("gencc", gencc, envir = .GlobalEnv)
+
+  message("\nAdding Pathomechanisms\n")
+  PathoClinVarVars = Add_Pathomechanisms(.clinvar_tsv_filtered = .clinvar_tsv_filtered2)
+  assign("PathoClinVarVars", PathoClinVarVars, envir = .GlobalEnv)
 
 }

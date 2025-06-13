@@ -21,10 +21,13 @@
 
 Add_PanelApp = function(Panel = "both", confidence = 3,
                         download = T){
+
+  httr::set_config(httr::config(ssl_verifypeer = 0L, ssl_verifyhost = 0L))
+
   if(download == T){
     # Determine which PanelApp to use (UK or Australia)
     baseURL_UK = "panelapp.genomicsengland.co.uk"
-    baseURL_AUS = "panelapp.agha.umccr.org"
+    baseURL_AUS = "panelapp-aus.org"
 
     # confidence will be the gene levels, i.e. 3=green, 2=amber, 1=red
     .confidence = confidence

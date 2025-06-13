@@ -18,6 +18,7 @@ Add_all(
   download_SysNDD = T,
   .gencc_tsv = gencc_tsv,
   gencc_classification = "Definitive",
+  .clinvar_tsv_filtered2 = clinvar_tsv_filtered,
   manualFile =
     "W:/HUG/04 Klinische Genomik/10 Panels/MorbidGenes-Panel/GenesToBeAddedManually.xlsx",
   ...
@@ -50,6 +51,8 @@ Add_all(
 
 \item{gencc_classification}{See \code{\link{Add_GenCC}} for details}
 
+\item{.clinvar_tsv_filtered2}{See \code{\link{Add_Pathomechanisms}} for details}
+
 \item{manualFile}{See \code{\link{Add_ManualGenes}} for details}
 
 \item{...}{Additional arguments passed on to \code{\link{Add_ClinVar}}}
@@ -60,7 +63,7 @@ Assigns all values to the global environment
 \description{
 This is a convenience wrapper script utilizing \code{\link{Add_ManualGenes}},
 \code{\link{Add_PanelApp}}, \code{\link{Add_ClinVar}}, \code{\link{Add_OMIM}},
-\code{\link{Add_HGMD}}, \code{\link{Add_HGNC}}.
+\code{\link{Add_HGMD}}, \code{\link{Add_HGNC}} and \code{\link{Add_Pathomechanisms}}.
 }
 \section{Warning}{
 

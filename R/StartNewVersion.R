@@ -53,7 +53,8 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   # these will be assigned within this funtion (with "assigned")
   # if yes, confirm to overwrite it
 
-  options('download.file.method'='curl')
+  options(download.file.method="curl",
+          download.file.extra = "-k -L")
 
   variables = c("VarvisGeneManagement",
                 "hgnc_complete_set",
@@ -163,7 +164,7 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   if(download_HGNC == T){
     message("\nDownloading HGNC Data\n")
 
-    download.file("https://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt",
+    download.file("https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt",
                   paste0(downloadDir, "hgnc_complete_set.txt"), quiet=F)
     hgnc_path = downloadDir
 
@@ -316,12 +317,14 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
 
   }
 
+
   message("\nReading ClinVar tsv (This might take a while...)\n")
 
   clinvar_tsv = read_tsv(paste0(clinvartsv_path, "variant_summary.txt.gz"),
                           col_select = c("#AlleleID", "Name", "GeneSymbol",
                                          "ClinicalSignificance", "Assembly",
-                                         "GeneID", "HGNC_ID"),
+                                         "GeneID", "HGNC_ID", "ClinSigSimple",
+                                         "Type"),
                          show_col_types = FALSE)
 
   colnames(clinvar_tsv)[1] = "AlleleID"
@@ -370,6 +373,17 @@ StartNewVersion = function(directory = "W:/HUG/04 Klinische Genomik/10 Panels/Mo
   ############################# LookUp Table ###############################
   lookup = read_csv2(paste0(prevVersion, "/LookUpTable_FirstOccurrence.csv"))
   assign("lookup", lookup, envir = .GlobalEnv)
+
+  ############################# Pseudogenes ###############################
+  pseudogenes_path = config::get("pseudogenes_tsv_path")
+  pseudogenes = read_tsv(pseudogenes_path) %>%
+    select("Parent name") %>%
+    distinct() %>%
+    rename("symbol" = "Parent name") %>%
+    mutate("has_pseudogene" = T)
+
+  assign("pseudogenes", pseudogenes, envir = .GlobalEnv)
+
 
   ############################# FINALE ########################################
 

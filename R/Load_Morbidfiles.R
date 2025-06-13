@@ -129,7 +129,8 @@ Load_Morbidfiles = function(directory,
 
   assign("clinvar_tsv_filtered", clinvar_tsv_filtered, envir = .GlobalEnv)
 
-  Add_all(ClinVarCutoff = .ClinVarCutoff, HGMDCutoff = .HGMDCutoff,
+  Add_all(add_coordinates = F,
+          ClinVarCutoff = .ClinVarCutoff, HGMDCutoff = .HGMDCutoff,
           downloadPanelApp = F)
 
 

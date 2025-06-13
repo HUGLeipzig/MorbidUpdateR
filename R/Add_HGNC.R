@@ -38,6 +38,8 @@ Add_HGNC = function(.VarvisGeneManagement = VarvisGeneManagement,
   ##### get genomic position via Ensembl/BiomaRt #####
   ##### define functions #####
 
+  httr::set_config(httr::config(ssl_verifypeer = 0L, ssl_verifyhost = 0L))
+
   if(add_coordinates == T){
     mart_hg19 <- useMart("ensembl", host="https://grch37.ensembl.org")
     mart_hg19 <- useDataset("hsapiens_gene_ensembl", mart_hg19)
