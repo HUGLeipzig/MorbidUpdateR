@@ -41,14 +41,14 @@ Add_HGNC = function(.VarvisGeneManagement = VarvisGeneManagement,
   httr::set_config(httr::config(ssl_verifypeer = 0L, ssl_verifyhost = 0L))
 
   if(add_coordinates == T){
-    mart_hg19 <- useMart("ensembl", host="https://grch37.ensembl.org")
-    mart_hg19 <- useDataset("hsapiens_gene_ensembl", mart_hg19)
+    #mart_hg19 <- useMart("ensembl", host="https://grch37.ensembl.org")
+    #mart_hg19 <- useDataset("hsapiens_gene_ensembl", mart_hg19)
 
     mart_hg38 <- useMart("ensembl", host="https://www.ensembl.org")
     mart_hg38 <- useDataset("hsapiens_gene_ensembl", mart_hg38)
 
     # function to retrive bed format style gene coordinates
-    gene_coordinates_from_symbol <- function(gene_symbols, reference = "hg19") {
+    gene_coordinates_from_symbol <- function(gene_symbols, reference = "hg38") {
       gene_symbol_list <- as_tibble(gene_symbols) %>%
         dplyr::select(hgnc_symbol = value)
 
@@ -76,7 +76,7 @@ Add_HGNC = function(.VarvisGeneManagement = VarvisGeneManagement,
     }
 
     #
-    gene_coordinates_from_ensembl <- function(ensembl_id, reference = "hg19") {
+    gene_coordinates_from_ensembl <- function(ensembl_id, reference = "hg38") {
       ensembl_id_list <- as_tibble(ensembl_id) %>%
         dplyr::select(ensembl_gene_id = value)
 
@@ -104,16 +104,19 @@ Add_HGNC = function(.VarvisGeneManagement = VarvisGeneManagement,
     }
 
     non_alt_loci_set_coordinates <- hgnc_complete_set %>%
-      mutate(hg19_coordinates_from_ensembl = gene_coordinates_from_ensembl(ensembl_gene_id)) %>%
-      mutate(hg19_coordinates_from_symbol = gene_coordinates_from_symbol(symbol)) %>%
+      #mutate(hg19_coordinates_from_ensembl = gene_coordinates_from_ensembl(ensembl_gene_id)) %>%
+      #mutate(hg19_coordinates_from_symbol = gene_coordinates_from_symbol(symbol)) %>%
+      mutate(hg19_coordinates_from_ensembl = NA) %>%
+      mutate(hg19_coordinates_from_symbol = NA) %>%
       mutate(hg38_coordinates_from_ensembl = gene_coordinates_from_ensembl(ensembl_gene_id, reference = "hg38")) %>%
       mutate(hg38_coordinates_from_symbol = gene_coordinates_from_symbol(symbol, reference = "hg38")) %>%
-      mutate(bed_hg19 =
-               case_when(
-                 !is.na(hg19_coordinates_from_ensembl$bed_format) ~ hg19_coordinates_from_ensembl$bed_format,
-                 is.na(hg19_coordinates_from_ensembl$bed_format) ~ hg19_coordinates_from_symbol$bed_format,
-               )
-      ) %>%
+      #mutate(bed_hg19 =
+      #         case_when(
+      #           !is.na(hg19_coordinates_from_ensembl$bed_format) ~ hg19_coordinates_from_ensembl$bed_format,
+      #           is.na(hg19_coordinates_from_ensembl$bed_format) ~ hg19_coordinates_from_symbol$bed_format,
+      #         )
+      #) %>%
+      mutate(bed_hg19 = NA) %>%
       mutate(bed_hg38 =
                case_when(
                  !is.na(hg38_coordinates_from_ensembl$bed_format) ~ hg38_coordinates_from_ensembl$bed_format,
