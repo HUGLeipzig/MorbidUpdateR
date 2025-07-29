@@ -1,0 +1,61 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# MorbidUpdateR
+
+
+The goal of MorbidUpdateR is to conveniently update our Morbid Genes Panel. The user 
+can simply run the functions without editing the variables, as the default values 
+already point to the correct and relevant files and paths. 
+
+For more flexibility and for testing purposes, the user can also specify new paths, 
+versions and files (which is, however, not recommended, as the alternative input 
+values have not been extensively tested yet).
+
+So in summary, just run the functions every month for an efficient update of the 
+Morbid Genes Panel. 
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/HUGLeipzig/MorbidUpdateR) with:
+
+```{r Installation, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("HUGLeipzig/MorbidUpdateR")
+```
+
+## Getting started
+
+The package contains several function, most of them can be run "as is" without 
+specifying variables and paths:
+
+```{r Getting Started, eval=FALSE}
+library(MorbidUpdateR)
+
+# generate directory and download all the relevant files 
+StartNewVersion()
+
+# add/edit the downloaded files automatically
+Add_all()
+
+# build and save the panel
+Build_MorbidGenesPanel()
+
+```
+
+That's basically it. For a more comprehensive list of variables and how to manipulate 
+your input/output files, just run `?function` in the command line
+
+

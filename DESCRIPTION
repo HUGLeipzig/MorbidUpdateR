@@ -1,0 +1,29 @@
+Package: MorbidUpdateR
+Title: Easy Update of the Morbid Genes Panel
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Robin-Tobias",
+           family = "Jauss",
+           role = c("aut", "cre"),
+           email = "Robin-Tobias.Jauss@medizin.uni-leipzig.de",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package contains several scripts to intuitively update the Morbid Genes Panel every month.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    dplyr,
+    vcfR, 
+    stringr, 
+    httr, 
+    jsonlite, 
+    readr, 
+    utils, 
+    readxl, 
+    tidyr, 
+    purrr, 
+    stringi, 
+    biomaRt, 
+    config
